@@ -1,135 +1,184 @@
-# Turborepo starter
+# WaiterApp
 
-This Turborepo starter is maintained by the Turborepo core team.
+WaiterApp is a tool designed to make the work of waiters easier by streamlining order management and service processes. The goal of the app is to improve efficiency in restaurants, bars, and cafés.
 
-## Using this example
+---
 
-Run the following command:
+## Technologies Used
 
-```sh
-npx create-turbo@latest
-```
+WaiterApp is a **monorepo** application built using **Turborepo**, containing three main services:
 
-## What's inside?
+* **Mobile App:** Built with **React Native**, **Expo**, and **TypeScript**.
+* **Web Frontend:** Built with **React**, **Vite**, and **TypeScript**.
+* **API:** Built with **Node.js**, **Express**, and **TypeScript**.
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+Additionally, there is a shared package for **ESLint configuration**:
 
 ```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+packages/eslint-config/
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+---
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+## Prerequisites
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+Before running the app, make sure you have installed:
 
-### Develop
+* Node.js (v18+ recommended)
+* Yarn (v1.22.22)
 
-To develop all apps and packages, run the following command:
+---
 
-```
-cd my-turborepo
+## Installation
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
+Install all dependencies from the root folder:
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
+```bash
+yarn
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+---
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
+## Running in Development Mode
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+To start all services (API, Web, and Mobile) in development mode simultaneously:
+
+```bash
+yarn dev
 ```
 
-### Remote Caching
+This will:
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+* Run the **API** locally
+* Run the **Web frontend** locally
+* Run the **Mobile app** via Expo
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+---
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
 
-```
-cd my-turborepo
+## Running Each Service Individually
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
+### API
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+1. Navigate to the API folder:
+
+```bash
+cd apps/api
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+2. Install dependencies (if not already done at root):
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+```bash
+yarn
 ```
 
-## Useful Links
+3. Run the API in development mode:
 
-Learn more about the power of Turborepo:
+```bash
+yarn dev
+```
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+**Default port:** `http://localhost:3000` (can be changed via environment variables)
+
+---
+
+### Web Frontend
+
+1. Navigate to the Web folder:
+
+```bash
+cd apps/frontend
+```
+
+2. Install dependencies (if not already done at root):
+
+```bash
+yarn
+```
+
+3. Run the web app in development mode:
+
+```bash
+yarn dev
+```
+
+**Default port:** `http://localhost:5173`
+
+---
+
+### Mobile App (Expo)
+
+1. Navigate to the Mobile folder:
+
+```bash
+cd apps/mobile
+```
+
+2. Install dependencies (if not already done at root):
+
+```bash
+yarn
+```
+
+3. Start Expo:
+
+```bash
+yarn dev
+```
+or
+```bash
+yarn start
+```
+
+This will open the Expo DevTools in your terminal. You can run the app on:
+
+* **iOS Simulator** (macOS only)
+* **Android Emulator**
+* **Physical devices** via QR code using the Expo Go app
+
+---
+
+## Monorepo Structure
+
+The project structure follows Turborepo conventions:
+
+```
+/waiterapp
+│
+├─ apps/
+│  ├─ api/       # Node.js + Express backend
+│  ├─ web/       # React + Vite frontend
+│  └─ mobile/    # React Native + Expo mobile app
+│
+├─ packages/
+│  └─ eslint-config/  # Shared ESLint configuration
+│
+└─ package.json  # Root configuration and scripts
+```
+
+---
+
+## Available Scripts
+
+Currently, the only utility script available is:
+
+* `yarn dev` – Runs all services in development mode
+
+---
+
+## Contact
+
+For questions, suggestions, or contributions, feel free to reach out.
+
+## Screenshots
+
+### Web Frontend
+<img width="1920" height="968" alt="image" src="https://github.com/user-attachments/assets/fe2f8113-88f2-4305-9f5e-9b58d93a7ab7" />
+<img width="373" height="112" alt="Screenshot 2025-10-17 at 23 26 18" src="https://github.com/user-attachments/assets/1b5ea2e2-3d8b-4a66-9a1a-7e6360d23a78" />
+
+### Mobile App
+<img width="350" height="757" alt="IMG_6471" src="https://github.com/user-attachments/assets/ed9ee770-9e6d-4593-a2f3-60295a82a1d2" />
+<img width="350" height="757" alt="IMG_6473" src="https://github.com/user-attachments/assets/b14eb79f-814f-47e6-8e12-5d4450070eb9" />
+<img width="350" height="757" alt="IMG_6472" src="https://github.com/user-attachments/assets/9e4eff3e-27a5-425f-95be-cea8a1b2d895" />
+<img width="350" height="757" alt="IMG_6469" src="https://github.com/user-attachments/assets/b0e10cb3-30a3-4d61-b430-e6c8b85cf367" />
+<img width="350" height="757" alt="IMG_6470" src="https://github.com/user-attachments/assets/6804a1c0-0ad1-48ce-8931-9ac0485c8ef1" />
