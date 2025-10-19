@@ -15,6 +15,7 @@ import {
 import { Close } from '../Icons/Close';
 import { formatCurrency } from '../../utils/formatCurrency';
 import Button from '../Button';
+import { apiUrl } from '../../constants/api';
 
 interface ProductModalProps {
     visible: boolean;
@@ -47,7 +48,7 @@ const ProductModal = ({
         >
             <Image
                 source={{
-                    uri: `http://192.168.0.232:3001/uploads/${product.imagePath}`,
+                    uri: `${apiUrl}/uploads/${product.imagePath}`,
                 }}
                 height={90}
                 width={90}

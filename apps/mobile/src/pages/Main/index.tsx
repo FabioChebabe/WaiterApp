@@ -1,7 +1,19 @@
-import Button from '../components/Button';
-import Categories from '../components/Categories';
-import Menu from '../components/Menu';
-import Header from '../components/Header';
+import Button from '../../components/Button';
+import Categories from '../../components/Categories';
+import Menu from '../../components/Menu';
+import Header from '../../components/Header';
+import TableModal from '../../components/TableModal';
+import { useEffect, useState } from 'react';
+import { CartItem } from '../../types/CartItem';
+import Cart from '../../components/Cart';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Product } from '../../types/product';
+import { ActivityIndicator } from 'react-native';
+
+import { Empty } from '../../components/Icons/Empty';
+import { Text } from '../../components/Text';
+import { Category } from '../../types/Categories';
+import { api } from '../../utils/api';
 import {
     CategoriesContainer,
     CenteredContainer,
@@ -10,18 +22,6 @@ import {
     Footer,
     MenuContainer,
 } from './styles';
-import TableModal from '../components/TableModal';
-import { useEffect, useState } from 'react';
-import { CartItem } from '../types/CartItem';
-import Cart from '../components/Cart';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Product } from '../types/product';
-import { ActivityIndicator } from 'react-native';
-
-import { Empty } from '../components/Icons/Empty';
-import { Text } from '../components/Text';
-import { Category } from '../types/Categories';
-import { api } from '../utils/api';
 
 const Main = () => {
     const insets = useSafeAreaInsets();

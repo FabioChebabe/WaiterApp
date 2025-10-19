@@ -1,9 +1,10 @@
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
-import Main from './src/Main';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
+import { AuthProvider } from './src/contexts/AuthProvider';
+import Navigation from './src/routes';
 
 export default function App() {
     const [isFontLoaded] = useFonts({
@@ -19,7 +20,9 @@ export default function App() {
     return (
         <SafeAreaProvider>
             <StatusBar style="dark" />
-            <Main />
+            <AuthProvider>
+                <Navigation />
+            </AuthProvider>
         </SafeAreaProvider>
     );
 }
