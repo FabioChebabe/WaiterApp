@@ -26,18 +26,11 @@ const Orders = () => {
         });
     }, []);
 
-    const waitingOrders = useMemo(
-        () => orders.filter((order) => order.status === 'WAITING'),
-        [orders],
+    const waitingOrders = orders.filter((order) => order.status === 'WAITING');
+    const inProductionOrders = orders.filter(
+        (order) => order.status === 'IN_PRODUCTION',
     );
-    const inProductionOrders = useMemo(
-        () => orders.filter((order) => order.status === 'IN_PRODUCTION'),
-        [orders],
-    );
-    const doneOrders = useMemo(
-        () => orders.filter((order) => order.status === 'DONE'),
-        [orders],
-    );
+    const doneOrders = orders.filter((order) => order.status === 'DONE');
 
     const handleCancelOrder = (orderId: string) => {
         setOrders((prevState) =>

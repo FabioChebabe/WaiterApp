@@ -6,8 +6,8 @@ import Login from '../pages/auth/Login';
 import Main from '../pages/Main';
 import Profile from '../pages/Profile';
 import { Octicons } from '@expo/vector-icons';
-import { ActivityIndicator, View } from 'react-native';
 import Splash from '../pages/Splash';
+import Orders from '../pages/Orders';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,6 +28,7 @@ const TabNavigation = () => {
                     ),
                 }}
             />
+            <Tab.Screen name="Orders" component={Orders} />
             <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
     );
