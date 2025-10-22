@@ -5,9 +5,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import Login from '../pages/auth/Login';
 import Main from '../pages/Main';
 import Profile from '../pages/Profile';
-import { Octicons } from '@expo/vector-icons';
+import { Octicons, MaterialIcons } from '@expo/vector-icons';
 import Splash from '../pages/Splash';
 import Orders from '../pages/Orders';
+import React from 'react';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,8 +29,24 @@ const TabNavigation = () => {
                     ),
                 }}
             />
-            <Tab.Screen name="Orders" component={Orders} />
-            <Tab.Screen name="Profile" component={Profile} />
+            <Tab.Screen
+                name="Orders"
+                component={Orders}
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <MaterialIcons name="list-alt" color={color} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Profile"
+                component={Profile}
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <Octicons name="person" color={color} />
+                    ),
+                }}
+            />
         </Tab.Navigator>
     );
 };

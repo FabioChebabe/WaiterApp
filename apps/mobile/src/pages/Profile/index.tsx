@@ -32,24 +32,24 @@ const Profile = () => {
                     <Text weight="600" size={24} style={{ marginBottom: 48 }}>
                         Meu Perfil
                     </Text>
-                    <Input label="Nome" value={name} onChangeValue={setName} />
+                    <Input label="Nome" value={name} onChangeText={setName} />
                     <Input
                         label="E-mail"
                         keyboardType="email-address"
                         value={email}
-                        onChangeValue={setEmail}
+                        onChangeText={setEmail}
                     />
                     <Input
                         label="Senha"
                         secureTextEntry
                         value={password}
-                        onChangeValue={setPassword}
+                        onChangeText={setPassword}
                     />
                     <Input
                         label="Confirmação da Senha"
                         secureTextEntry
                         value={confirmPassword}
-                        onChangeValue={setConfirmPassword}
+                        onChangeText={setConfirmPassword}
                         style={{ marginBottom: 40 }}
                     />
                     <Button onPress={logout} disabled={isButtonDisabled}>

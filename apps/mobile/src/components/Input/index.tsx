@@ -5,12 +5,11 @@ import { forwardRef } from 'react';
 
 interface InputProps extends TextInputProps {
     label: string;
-    value: string;
-    onChangeValue: (text: string) => void;
+    error?: string;
 }
 
 export const Input = forwardRef<TextInput, InputProps>(
-    ({ label, onChangeValue, value, ...rest }, ref) => {
+    ({ label, value, error, ...rest }, ref) => {
         return (
             <InputContainer>
                 <Text size={14} color="#999999">
@@ -18,11 +17,10 @@ export const Input = forwardRef<TextInput, InputProps>(
                 </Text>
                 <StyledTextInput
                     ref={ref}
-                    value={value}
-                    onChangeText={onChangeValue}
                     placeholderTextColor="#999999"
                     {...rest}
                 />
+                {!!error && <Text color="red">{error}</Text>}
             </InputContainer>
         );
     },
