@@ -7,58 +7,117 @@ import { useAuth } from '../../contexts/AuthProvider';
 import { ScrollView, View } from 'react-native';
 import { Text } from '../../components/Text';
 import { Input } from '../../components/Input';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import z, { email } from 'zod';
+import { Controller, useForm, useWatch } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Container, ContentContainer, FormContainer, Title } from './styles';
+
+const schema = z
+    .object({
+        name: z.string(),
+        email: z.email({ message: 'Invalid email address' }),
+        password: z.string().min(8, { message: 'Your password is too small' }),
+        confirmPassword: z
+            .string()
+            .min(8, { message: 'Your password is too small' }),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+        message: 'Passwords do not match',
+        path: ['confirmPassword'], // 👈 sets the error to confirmPassword field
+    });
+
+type FormData = z.infer<typeof schema>;
 
 const Profile = () => {
     const insets = useSafeAreaInsets();
     const { logout } = useAuth();
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const {
+        handleSubmit,
+        control,
+        formState: { errors },
+    } = useForm<FormData>({
+        resolver: zodResolver(schema),
+        mode: 'onSubmit',
+    });
+
+    const name = useWatch({ control, name: 'name' });
+    const email = useWatch({ control, name: 'email' });
+    const password = useWatch({ control, name: 'password' });
+    const confirmPassword = useWatch({ control, name: 'confirmPassword' });
 
     const isButtonDisabled = !name || !email || !password || !confirmPassword;
 
     return (
-        <ScrollView
-            contentContainerStyle={{
-                flexGrow: 1,
-                padding: 24,
-                paddingTop: insets.top + 20,
-            }}
-        >
-            <View style={{ justifyContent: 'space-between', flex: 1 }}>
+        <Container insets={insets}>
+            <ContentContainer>
                 <View>
-                    <Text weight="600" size={24} style={{ marginBottom: 48 }}>
+                    <Title weight="600" size={24}>
                         Meu Perfil
-                    </Text>
-                    <Input label="Nome" value={name} onChangeText={setName} />
-                    <Input
-                        label="E-mail"
-                        keyboardType="email-address"
-                        value={email}
-                        onChangeText={setEmail}
-                    />
-                    <Input
-                        label="Senha"
-                        secureTextEntry
-                        value={password}
-                        onChangeText={setPassword}
-                    />
-                    <Input
-                        label="Confirmação da Senha"
-                        secureTextEntry
-                        value={confirmPassword}
-                        onChangeText={setConfirmPassword}
-                        style={{ marginBottom: 40 }}
-                    />
-                    <Button onPress={logout} disabled={isButtonDisabled}>
+                    </Title>
+                    <FormContainer>
+                        <Controller
+                            control={control}
+                            name="name"
+                            render={({ field: { onChange, value } }) => (
+                                <Input
+                                    label="Nome"
+                                    value={value}
+                                    onChangeText={onChange}
+                                    error={errors.name?.message}
+                                />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="email"
+                            render={({ field: { onChange, value } }) => (
+                                <Input
+                                    label="E-mail"
+                                    keyboardType="email-address"
+                                    value={value}
+                                    onChangeText={onChange}
+                                    error={errors.email?.message}
+                                />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="password"
+                            render={({ field: { onChange, value } }) => (
+                                <Input
+                                    label="Senha"
+                                    secureTextEntry
+                                    value={value}
+                                    onChangeText={onChange}
+                                    error={errors.password?.message}
+                                />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="confirmPassword"
+                            render={({ field: { onChange, value } }) => (
+                                <Input
+                                    label="Confirmação da Senha"
+                                    secureTextEntry
+                                    value={value}
+                                    onChangeText={onChange}
+                                    error={errors.confirmPassword?.message}
+                                />
+                            )}
+                        />
+                    </FormContainer>
+                    <Button
+                        onPress={handleSubmit(() => {})}
+                        disabled={isButtonDisabled}
+                    >
                         Salvar alterações
                     </Button>
                 </View>
                 <Button onPress={logout}>Logout</Button>
-            </View>
-        </ScrollView>
+            </ContentContainer>
+        </Container>
     );
 };
 

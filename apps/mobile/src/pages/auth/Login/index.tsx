@@ -3,29 +3,27 @@ import { useAuth } from '../../../contexts/AuthProvider';
 import { Text } from '../../../components/Text';
 import { Container, FieldsContainer, Form } from './styles';
 import { Input } from '../../../components/Input';
-import React, { useState } from 'react';
+import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { TextInput } from 'react-native';
 import z from 'zod';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { isValid } from 'zod/v3';
 
 const schema = z.object({
     email: z.email({ message: 'Invalid email address' }),
     password: z.string().min(8, { message: 'Your password is too small' }),
 });
 
-export type LoginFormData = z.infer<typeof schema>;
+type LoginFormData = z.infer<typeof schema>;
 
 const Login = () => {
     const insets = useSafeAreaInsets();
     const { login } = useAuth();
     const {
-        register,
         handleSubmit,
         control,
-        formState: { errors, isValid },
+        formState: { errors },
     } = useForm<LoginFormData>({
         resolver: zodResolver(schema),
         mode: 'onSubmit',
@@ -33,7 +31,6 @@ const Login = () => {
     const email = useWatch({ control, name: 'email' });
     const password = useWatch({ control, name: 'password' });
 
-    // Disable button if either field is empty
     const isButtonDisabled = !email || !password;
 
     const passwordInputRef = React.useRef<TextInput>(null);

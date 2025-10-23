@@ -9,9 +9,9 @@ interface InputProps extends TextInputProps {
 }
 
 export const Input = forwardRef<TextInput, InputProps>(
-    ({ label, value, error, ...rest }, ref) => {
+    ({ label, value, error, style, ...rest }, ref) => {
         return (
-            <InputContainer>
+            <InputContainer style={style}>
                 <Text size={14} color="#999999">
                     {label}
                 </Text>
