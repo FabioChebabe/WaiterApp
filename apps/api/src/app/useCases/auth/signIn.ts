@@ -36,7 +36,6 @@ export async function signIn(request: Request, response: Response) {
                 error: 'Invalid credentials',
             });
         }
-        console.log('1>>> ', env.jwtSecret);
 
         const accessToken = sign(
             {

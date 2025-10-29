@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { request, Request, Response } from 'express';
 import { User } from '../../models/User';
 
 export async function listUsers(request: Request, response: Response) {

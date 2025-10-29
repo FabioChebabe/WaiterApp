@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-import { Router } from 'express';
+import { Request, Router } from 'express';
 import { listCategories } from './app/useCases/categories/listCategories';
 import { createCategory } from './app/useCases/categories/createCategory';
 import { listProducts } from './app/useCases/products/listProducts';
@@ -16,6 +16,8 @@ import { listUsers } from './app/useCases/users/listUsers';
 import { signIn } from './app/useCases/auth/signIn';
 import { JwtPayload, verify } from 'jsonwebtoken';
 import { env } from './app/config/env';
+import { authenticationMiddleware } from './app/middleware/authenticationMiddleware';
+import { authorizationMiddleware } from './app/middleware/authorizationMiddleware';
 
 export const router = Router();
 
@@ -34,38 +36,8 @@ router.post('/sign-up', signUp);
 router.post('/sign-in', signIn);
 router.get(
     '/users',
-    (req, resp, next) => {
-        const { authorization } = req.headers;
-        // if()
-        if (!authorization) {
-            return resp.status(401).json({ error: 'Invalid access token.' });
-        }
-
-        try {
-            const [bearer, token] = authorization.split(' ');
-            if (bearer !== 'Bearer') {
-                throw new Error();
-            }
-            const payload = verify(token, env.jwtSecret) as JwtPayload;
-
-            return {
-                data: {
-                    account: {
-                        accountId: payload.sub,
-                        role: payload.role,
-                    },
-                },
-            };
-        } catch (error) {
-            return {
-                statusCode: 401,
-                body: {
-                    error: 'Invalid access token.',
-                },
-            };
-        }
-        console.log('authorization', authorization);
-    },
+    authenticationMiddleware,
+    authorizationMiddleware(['admin']),
     listUsers,
 );
 
