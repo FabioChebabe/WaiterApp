@@ -42,21 +42,57 @@ router.get(
 );
 
 // List categories
-router.get('/categories', listCategories);
+router.get(
+    '/categories',
+    authenticationMiddleware,
+    authorizationMiddleware(['super_admin', 'admin', 'manager', 'waiter']),
+    listCategories,
+);
 // Create Category
-router.post('/categories', createCategory);
+router.post(
+    '/categories',
+    authenticationMiddleware,
+    authorizationMiddleware(['super_admin', 'admin', 'manager']),
+    createCategory,
+);
 //List products
 router.get('/products', listProducts);
 // Create Product
-router.post('/products', upload.single('image'), createProduct);
+router.post(
+    '/products',
+    authenticationMiddleware,
+    authorizationMiddleware(['super_admin', 'admin', 'manager']),
+    upload.single('image'),
+    createProduct,
+);
 // get products by category
 router.get('/categories/:categoryId/products', listProductsByCategory);
 
 //list order
-router.get('/orders', listOrders);
+router.get(
+    '/orders',
+    authenticationMiddleware,
+    authorizationMiddleware(['super_admin', 'admin', 'manager', 'waiter']),
+    listOrders,
+);
 // Create Order
-router.post('/orders', createOrder);
+router.post(
+    '/orders',
+    authenticationMiddleware,
+    authorizationMiddleware(['super_admin', 'admin', 'manager', 'waiter']),
+    createOrder,
+);
 // Change order status
-router.patch('/orders/:orderId', changeOrderStatus);
+router.patch(
+    '/orders/:orderId',
+    authenticationMiddleware,
+    authorizationMiddleware(['super_admin', 'admin', 'manager', 'waiter']),
+    changeOrderStatus,
+);
 // Delete/cancel order
-router.delete('/orders/:orderId', cancelOrder);
+router.delete(
+    '/orders/:orderId',
+    authenticationMiddleware,
+    authorizationMiddleware(['super_admin', 'admin', 'manager', 'waiter']),
+    cancelOrder,
+);
